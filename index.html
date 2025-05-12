@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="todoApp">
+<head>
+  <meta charset="UTF-8">
+  <title>AngularJS To-Do App</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js" defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  
+
+  <script src="app.js" defer></script>
+</head>
+<body ng-controller="TodoController as todo" ng-cloak>
+  <div class="todo-container">
+    <h2><i class="fas fa-clipboard-list"></i> My To-Do List</h2>
+    
+    <form ng-submit="todo.addTodo()">
+      <input type="text" ng-model="todo.todoInput" placeholder="Add new task..." autocomplete="off">
+      <button type="submit"><i class="fas fa-plus"></i> Add</button>
+    </form>
+    
+    <ul>
+      <li ng-repeat="item in todo.todoList track by $index" ng-class="{done: item.done}">
+        <input type="checkbox" ng-model="item.done">
+        <span class="todo-text" ng-class="{done: item.done}">{{ item.text }}</span>
+        <i class="fas fa-times" ng-click="todo.removeTodo($index)" style="cursor:pointer; color:#e74c3c;"></i>
+      </li>
+    </ul>
+    
+    <button class="remove-btn" ng-click="todo.removeCompleted()" ng-show="todo.hasCompletedTodos()">
+      <i class="fas fa-trash"></i> Remove Completed
+    </button>
+    
+    <div class="stats">
+      {{ todo.remainingTodos() }} of {{ todo.todoList.length }} items remaining
+    </div>
+  </div>
+</body>
+</html>

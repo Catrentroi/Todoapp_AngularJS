@@ -1,0 +1,11 @@
+<ul>
+  <li ng-repeat="todo in $ctrl.todos track by $index" ng-class="{done: todo.done}">
+    <input type="checkbox" ng-model="todo.done">
+    <span class="todo-text" ng-class="{done: todo.done}">{{ todo.text }}</span>
+    <i class="fas fa-times" ng-click="$ctrl.removeTodo($index)" style="cursor:pointer; color:#e74c3c;"></i>
+  </li>
+</ul>
+
+<button class="remove-btn" ng-click="$ctrl.removeCompleted()" ng-show="$ctrl.hasCompletedTodos()">
+  <i class="fas fa-trash"></i> Xóa đã hoàn thành
+</button>
